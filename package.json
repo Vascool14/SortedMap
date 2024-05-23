@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "build": "g++ App.cpp ExtendedTest.cpp ShortTest.cpp SMIterator.cpp SortedMap.cpp -o a1 && ./a1"
+    }
+}

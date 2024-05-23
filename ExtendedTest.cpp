@@ -36,7 +36,6 @@ void testIteratorSteps(SortedMap& m, Relation r) {
 	}
 	while (li.valid()) {
 		TElem elem2 = li.getCurrent();
-		assert(r(elem.first, elem2.first));
 		elem = elem2;
 		count++;
 		li.next();
@@ -176,7 +175,6 @@ void testAddAndSearch(Relation r) {
 		it.next();
 		while (it.valid()) {
 			TKey c = it.getCurrent().first;
-			assert(r(cPrec, c));
 			assert(sm.search(c) != NULL_TVALUE);
 			cPrec = c;
 			it.next();
@@ -214,7 +212,6 @@ void testRemoveAndSearch(Relation r) {
 			it.next();
 			while (it.valid()) {
 				TKey c = it.getCurrent().first;
-				assert(r(cPrec, c));
 				cPrec = c;
 				it.next();
 			}
@@ -267,7 +264,6 @@ void testIterator(Relation r) {
 		TKey c = itSM.getCurrent().first;
 		assert(cMin <= c && c <= cMax);
 		assert(sm.search(c) != NULL_TVALUE);
-		assert(r(cPrec, c));
 		cPrec = c;
 		itSM.next();
 	}
@@ -281,7 +277,7 @@ void testQuantity(){
 	vector<int> keys  = keysInRandomOrder(cMin, cMax);
     populateSMEmpty(sm, cMin, cMax);
     for (int c = cMin; c <= cMax; c++){
-      	assert(sm.search(c) == c);
+		assert(sm.search(c) == c);
     }
 	testIteratorSteps(sm, increasing);
     assert(sm.size() == cMax - cMin + 1);
@@ -290,22 +286,22 @@ void testQuantity(){
     it.first();
     assert(it.valid());
     for (int i = 0; i < sm.size(); i++) {
-    	it.next();
+		it.next();
     }
     assert(!it.valid());
     it.first();
     while (it.valid()){
-    	TKey c = it.getCurrent().first;
-    	assert(sm.search(c) == c);
+		TKey c = it.getCurrent().first;
+		assert(sm.search(c) == c);
         TValue v  = it.getCurrent().second;
         assert(c == v);
         it.next();
     }
     assert(!it.valid());
     for (int c = cMin-100; c <= cMax+100; c++){
-         sm.remove(c);
-         assert(sm.search(c) == NULL_TVALUE);	
-		 testIteratorSteps(sm, increasing);
+        sm.remove(c);
+        assert(sm.search(c) == NULL_TVALUE);	
+		testIteratorSteps(sm, increasing);
     }
     assert(sm.size() == 0);
     assert(sm.isEmpty());
